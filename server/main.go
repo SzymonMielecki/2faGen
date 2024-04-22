@@ -13,5 +13,6 @@ func main() {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 	e.POST("/register", handlers.HandleRegister)
+	e.POST("/login", handlers.HandleLogin)
 	e.Logger.Fatal(e.Start(":1323"))
 }
