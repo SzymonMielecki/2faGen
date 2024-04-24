@@ -23,7 +23,3 @@ func SendMail(to_email, subject, code, body string, credentials state.MailCreden
 		fmt.Println(response.Headers)
 	}
 }
-
-func Template(code string) string {
-	return fmt.Sprintf("Your code is: %s", code)
-}

@@ -7,6 +7,7 @@ import (
 	"github.com/SzymonMielecki/2faGen/server/handlers"
 	"github.com/SzymonMielecki/2faGen/server/state"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -14,6 +15,7 @@ func main() {
 	email := os.Getenv("SENDGRID_EMAIL")
 	credentials := state.NewMailCredentials(api_key, email)
 	e := echo.New()
+	e.Use(middleware.CORS())
 	s, err := state.NewState("test.db", *credentials)
 	if err != nil {
 		e.Logger.Fatal(err)

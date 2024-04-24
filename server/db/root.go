@@ -53,8 +53,8 @@ func (r *RootDB) CreateUser(name, email, password string) (User, error) {
 	return r.GetUserByEmail(email)
 }
 
-func (r *RootDB) CompleteUser(user User) error {
-	q := r.db.Model(&user).Update("is_completed", true)
+func (r *RootDB) CompleteUser(email string) error {
+	q := r.db.Where("email = ?", email).Update("is_completed", true)
 	if q.Error != nil {
 		return q.Error
 	}

@@ -14,6 +14,12 @@ func HandleRegister(s state.State) echo.HandlerFunc {
 		name := c.FormValue("name")
 		email := c.FormValue("email")
 		password := c.FormValue("password")
+		_, err := s.Root.GetUserByEmail(email)
+
+		if err == nil {
+			return c.String(http.StatusBadRequest, "User already exists")
+		}
+
 		user, err := s.Root.CreateUser(name, email, password)
 		if err != nil {
 			fmt.Println(err)
