@@ -2,27 +2,28 @@ package mailer
 
 import (
 	"fmt"
-	"os"
+	"log"
 
-	"github.com/joho/godotenv"
-	"gopkg.in/gomail.v2"
+	"github.com/SzymonMielecki/2faGen/server/state"
+	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
-func SendMail(to, subject, body string) {
-	err := godotenv.Load(".env")
+func SendMail(to_email, subject, code, body string, credentials state.MailCredentials) {
+	from := mail.NewEmail("2faGen", credentials.Email)
+	to := mail.NewEmail("Example User", to_email)
+	message := mail.NewSingleEmail(from, subject, to, code, body)
+	client := sendgrid.NewSendClient(credentials.Api_key)
+	response, err := client.Send(message)
 	if err != nil {
-		fmt.Println("Error loading .env file")
-		return
+		log.Println(err)
+	} else {
+		fmt.Println(response.StatusCode)
+		fmt.Println(response.Body)
+		fmt.Println(response.Headers)
 	}
-	app_password := os.Getenv("APP_PASSWORD")
-	m := gomail.NewMessage()
-	m.SetHeader("From", "2.f.a.generator@gmail.com")
-	m.SetHeader("To", to)
-	m.SetHeader("Subject", subject)
-	m.SetBody("text/html", body)
+}
 
-	d := gomail.NewDialer("smtp.gmail.com", 587, "2.f.a.generator@gmail.com", app_password)
-	if err := d.DialAndSend(m); err != nil {
-		panic(err)
-	}
+func Template(code string) string {
+	return fmt.Sprintf("Your code is: %s", code)
 }
