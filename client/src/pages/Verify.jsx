@@ -2,11 +2,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 export const VerifyPage = () => {
   const [code, setCode] = useState("");
   const navigate = useNavigate();
   const params = useParams();
   const token = params.token;
+  const signIn = useSignIn();
   const handleSubmit = async (e) => {
     if (code.length !== 6) {
       alert("code must be 6 characters");
@@ -24,8 +26,10 @@ export const VerifyPage = () => {
       data: data,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((_) => {
-        navigate("/");
+      .then((res) => {
+        if (signIn({ auth: { token: res.data, type: "Bearer" } })) {
+          navigate("/");
+        }
       })
       .catch((err) => {
         alert("the code is invalid");

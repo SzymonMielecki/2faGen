@@ -18,9 +18,7 @@ export const LoginPage = () => {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        console.log(res.data);
-        let path = "/verify/" + res.data;
-        navigate(path);
+        navigate("/verify/" + res.data);
       })
       .catch((err) => {
         if (err.response.status === 409) {

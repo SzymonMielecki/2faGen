@@ -25,9 +25,7 @@ export const RegisterPage = () => {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        console.log(res.data);
-        let path = "/verify/" + res.data;
-        navigate(path);
+        navigate("/verify/" + res.data);
       })
       .catch((err) => {
         console.log(err);

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/base64"
 	"net/http"
 
 	"github.com/SzymonMielecki/2faGen/server/state"
@@ -17,6 +18,7 @@ func HandleVerify(s state.State) echo.HandlerFunc {
 		}
 		s.Root.CompleteToken(t)
 		s.Root.CompleteUser(t.User.Email)
-		return c.String(http.StatusOK, "Token verified")
+		data := base64.StdEncoding.EncodeToString([]byte(token + code))
+		return c.String(http.StatusOK, data)
 	}
 }
