@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import { Link, useNavigate } from "react-router-dom";
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const isAuthenticated = useIsAuthenticated();
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = new FormData();
@@ -29,6 +31,14 @@ export const LoginPage = () => {
   };
   return (
     <div>
+      <button
+        onClick={() => {
+          console.log(isAuthenticated);
+        }}
+      >
+        check
+      </button>
+      <Link to="/register">Go to Register</Link>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email:</label>

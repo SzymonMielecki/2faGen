@@ -3,12 +3,14 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 export const VerifyPage = () => {
   const [code, setCode] = useState("");
   const navigate = useNavigate();
   const params = useParams();
   const token = params.token;
   const signIn = useSignIn();
+  const isAuthenticated = useIsAuthenticated();
   const handleSubmit = async (e) => {
     if (code.length !== 6) {
       alert("code must be 6 characters");
@@ -20,29 +22,26 @@ export const VerifyPage = () => {
     data.append("token", token);
     data.append("code", code);
 
-    axios
-      .post("http://[::]:1323/verify", data, {
+    try {
+      const res = await axios.post("http://[::]:1323/verify", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      })
-      .then((res) => {
-        if (
-          signIn({
-            auth: {
-              token: res.data.token,
-              type: "Bearer",
-              userState: { email: res.data.email },
-            },
-          })
-        ) {
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        alert("the code is invalid");
-        console.log(err);
       });
+      signIn({
+        auth: {
+          token: res.data.Token,
+        },
+        userState: { email: res.data.Email },
+      });
+      console.log(isAuthenticated);
+      console.log(res.data);
+      if (isAuthenticated) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
