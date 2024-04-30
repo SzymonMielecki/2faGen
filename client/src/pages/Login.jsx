@@ -11,19 +11,18 @@ export const LoginPage = () => {
     data.append("email", email);
     data.append("password", password);
 
-    axios({
-      method: "post",
-      url: "http://[::]:1323/login",
-      data: data,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
+    axios
+      .post("http://[::]:1323/login", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         navigate("/verify/" + res.data);
       })
       .catch((err) => {
         if (err.response.status === 409) {
           alert("user doesnt exist");
-          return;
         }
         console.log(err);
       });

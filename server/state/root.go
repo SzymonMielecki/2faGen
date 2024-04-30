@@ -12,6 +12,11 @@ type MailCredentials struct {
 	Email   string
 }
 
+type Response struct {
+	Token string
+	Email string
+}
+
 func NewMailCredentials(api_key string, email string) *MailCredentials {
 	return &MailCredentials{Api_key: api_key, Email: email}
 }

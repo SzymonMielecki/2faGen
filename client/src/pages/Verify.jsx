@@ -20,14 +20,22 @@ export const VerifyPage = () => {
     data.append("token", token);
     data.append("code", code);
 
-    axios({
-      method: "post",
-      url: "http://[::]:1323/verify",
-      data: data,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
+    axios
+      .post("http://[::]:1323/verify", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        if (signIn({ auth: { token: res.data, type: "Bearer" } })) {
+        if (
+          signIn({
+            auth: {
+              token: res.data.token,
+              type: "Bearer",
+              userState: { email: res.data.email },
+            },
+          })
+        ) {
           navigate("/");
         }
       })

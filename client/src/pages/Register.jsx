@@ -18,21 +18,20 @@ export const RegisterPage = () => {
     data.append("email", email);
     data.append("password", password);
 
-    axios({
-      method: "post",
-      url: "http://[::]:1323/register",
-      data: data,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
+    axios
+      .post("http://[::]:1323/register", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         navigate("/verify/" + res.data);
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 409) {
           alert("Email already exists");
-          return;
         }
+        console.log(err);
       });
   };
   return (

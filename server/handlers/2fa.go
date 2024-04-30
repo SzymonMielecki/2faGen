@@ -19,6 +19,7 @@ func HandleVerify(s state.State) echo.HandlerFunc {
 		s.Root.CompleteToken(t)
 		s.Root.CompleteUser(t.User.Email)
 		data := base64.StdEncoding.EncodeToString([]byte(token + code))
-		return c.String(http.StatusOK, data)
+		response := state.Response{Token: data, Email: t.User.Email}
+		return c.JSON(http.StatusOK, response)
 	}
 }
