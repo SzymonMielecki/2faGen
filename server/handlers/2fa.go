@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/base64"
+	"fmt"
 	"net/http"
 
 	"github.com/SzymonMielecki/2faGen/server/state"
@@ -17,9 +18,14 @@ func HandleVerify(s state.State) echo.HandlerFunc {
 			return err
 		}
 		s.Root.CompleteToken(t)
-		s.Root.CompleteUser(t.User.Email)
+		user, err := s.Root.GetUserFromToken(t)
+		if err != nil {
+			return err
+		}
+		fmt.Println("email:", user.Email)
+		s.Root.CompleteUser(user.Email)
 		data := base64.StdEncoding.EncodeToString([]byte(token + code))
-		response := state.Response{Token: data, Email: t.User.Email}
+		response := state.Response{Token: data, Email: user.Email}
 		return c.JSON(http.StatusOK, response)
 	}
 }

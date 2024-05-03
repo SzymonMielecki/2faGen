@@ -11,7 +11,7 @@ import (
 
 func SendMail(to_email, subject, code, body string, credentials state.MailCredentials) {
 	from := mail.NewEmail("2faGen", credentials.Email)
-	to := mail.NewEmail("Example User", to_email)
+	to := mail.NewEmail("User", to_email)
 	message := mail.NewSingleEmail(from, subject, to, code, body)
 	client := sendgrid.NewSendClient(credentials.Api_key)
 	response, err := client.Send(message)

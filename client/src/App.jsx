@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 
 import { LoginPage } from "./pages/Login";
 import { RegisterPage } from "./pages/Register";
@@ -8,16 +7,27 @@ import { HomePage } from "./pages/Home";
 
 import "./App.css";
 
+import { AuthProvider } from "./hooks/useAuth";
+import { ProtectedRoute } from "./components/protectedRoute";
+
 function App() {
   return (
-    <Routes>
-      <Route element={<AuthOutlet fallbackPath="/login" />}>
-        <Route path="/" element={<HomePage />} />
-      </Route>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/verify/:token" element={<VerifyPage />} />
-    </Routes>
+    <AuthProvider>
+      {" "}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/verify/:token" element={<VerifyPage />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 

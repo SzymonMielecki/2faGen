@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { Link, useNavigate } from "react-router-dom";
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const isAuthenticated = useIsAuthenticated();
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = new FormData();
@@ -29,15 +27,27 @@ export const LoginPage = () => {
         console.log(err);
       });
   };
+  const testSubmit = async (e) => {
+    // remove before production
+    e.preventDefault();
+    let data = new FormData();
+    data.append("email", "test@test.com");
+    data.append("password", "test");
+    axios
+      .post("http://[::]:1323/login", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        navigate("/verify/" + res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
-      <button
-        onClick={() => {
-          console.log(isAuthenticated);
-        }}
-      >
-        check
-      </button>
       <Link to="/register">Go to Register</Link>
       <form onSubmit={handleSubmit}>
         <div>
@@ -60,6 +70,8 @@ export const LoginPage = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <button onClick={testSubmit}>Test Login</button>
+      {/*remove before production*/}
     </div>
   );
 };

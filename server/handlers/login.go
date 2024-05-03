@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/SzymonMielecki/2faGen/server/mailer"
@@ -27,6 +28,7 @@ func HandleLogin(s state.State) echo.HandlerFunc {
 		if err != nil {
 			return err
 		}
+		fmt.Println(token, code)
 		mailer.SendMail(email, "", code, code, *s.Mail)
 		return c.String(http.StatusOK, token)
 	}

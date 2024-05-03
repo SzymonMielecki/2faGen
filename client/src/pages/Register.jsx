@@ -28,12 +28,30 @@ export const RegisterPage = () => {
         navigate("/verify/" + res.data);
       })
       .catch((err) => {
-        if (err.response.status === 409) {
-          alert("Email already exists");
-        }
         console.log(err);
       });
   };
+  const testSubmit = async (e) => {
+    // remove before production
+    e.preventDefault();
+    let data = new FormData();
+    data.append("fullname", "test");
+    data.append("email", "test@test.com");
+    data.append("password", "test");
+    axios
+      .post("http://[::]:1323/register", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        navigate("/verify/" + res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -75,6 +93,8 @@ export const RegisterPage = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <button onClick={testSubmit}>Test</button>
+      {/*remove before production*/}
     </div>
   );
 };

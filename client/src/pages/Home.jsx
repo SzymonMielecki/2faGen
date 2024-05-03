@@ -1,21 +1,10 @@
-import useSignOut from "react-auth-kit/hooks/useSignOut";
-
-import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
-
+import { useAuth } from "../hooks/useAuth";
 export const HomePage = () => {
-  const signOut = useSignOut();
-  const isAuthenticated = useIsAuthenticated();
+  const { logout } = useAuth();
   return (
     <div>
       <h1>This is the Home Page</h1>
-      <button onClick={signOut}>Sign Out</button>
-      <button
-        onClick={() => {
-          console.log(isAuthenticated);
-        }}
-      >
-        check
-      </button>
+      <button onClick={logout}>Sign Out</button>
     </div>
   );
 };
