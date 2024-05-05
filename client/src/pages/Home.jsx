@@ -1,6 +1,6 @@
 import { useAuth } from "../hooks/useAuth";
 export const HomePage = () => {
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
   return (
     <div>
       <h1>This is the Home Page</h1>

@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
+	"github.com/SzymonMielecki/2faGen/server/db"
 	"github.com/SzymonMielecki/2faGen/server/handlers"
 	"github.com/SzymonMielecki/2faGen/server/state"
 	"github.com/labstack/echo/v4"
@@ -16,7 +18,23 @@ func main() {
 	credentials := state.NewMailCredentials(api_key, email)
 	e := echo.New()
 	e.Use(middleware.CORS())
-	s, err := state.NewState("test.db", *credentials)
+	host := os.Getenv("PGHOST")
+	user := os.Getenv("PGUSER")
+	password := os.Getenv("PGPASSWORD")
+	dbname := os.Getenv("PGDATABASE")
+	dbport := os.Getenv("PGPORT")
+	var database *db.RootDB
+	var err error
+	if host == "" || user == "" || password == "" || dbname == "" || dbport == "" {
+		database, err = db.NewRootDB("test.db", true)
+	} else {
+		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Europe/Warsaw", host, user, password, dbname, dbport)
+		database, err = db.NewRootDB(dsn, false)
+	}
+	if err != nil {
+		e.Logger.Fatal(err)
+	}
+	s, err := state.NewState(database, *credentials)
 	if err != nil {
 		e.Logger.Fatal(err)
 		return

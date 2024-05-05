@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
@@ -31,8 +32,13 @@ type Token struct {
 	User         User
 }
 
-func NewRootDB(path string) (*RootDB, error) {
-	db, err := gorm.Open(sqlite.Open(path), &gorm.Config{})
+func NewRootDB(path string, isSqlite bool) (*RootDB, error) {
+	db, err := gorm.Open(postgres.Open(path), &gorm.Config{})
+	if isSqlite {
+		db, err = gorm.Open(sqlite.Open(path), &gorm.Config{})
+	} else {
+		db, err = gorm.Open(postgres.Open(path), &gorm.Config{})
+	}
 	if err != nil {
 		return nil, err
 	}

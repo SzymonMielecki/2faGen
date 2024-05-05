@@ -21,11 +21,7 @@ func NewMailCredentials(api_key string, email string) *MailCredentials {
 	return &MailCredentials{Api_key: api_key, Email: email}
 }
 
-func NewState(path string, credentials MailCredentials) (*State, error) {
-	db, err := db.NewRootDB(path)
-	if err != nil {
-		return nil, err
-	}
+func NewState(db *db.RootDB, credentials MailCredentials) (*State, error) {
 	if err := db.Migrate(); err != nil {
 		return nil, err
 	}
