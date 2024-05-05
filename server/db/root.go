@@ -25,15 +25,16 @@ type User struct {
 
 type Token struct {
 	gorm.Model
-	UserID       uint
 	Token        string
 	Code         string
-	Is_completed bool
 	User         User
+	UserID       uint
+	Is_completed bool
 }
 
 func NewRootDB(path string, isSqlite bool) (*RootDB, error) {
-	db, err := gorm.Open(postgres.Open(path), &gorm.Config{})
+	var db *gorm.DB
+	var err error
 	if isSqlite {
 		db, err = gorm.Open(sqlite.Open(path), &gorm.Config{})
 	} else {
