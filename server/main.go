@@ -29,5 +29,5 @@ func main() {
 	e.POST("/verify", handlers.HandleVerify(*s))
 
 	port := os.Getenv("PORT")
-	e.Logger.Fatal(e.Start(port))
+	e.Logger.Fatal(e.Start(":" + port))
 }
