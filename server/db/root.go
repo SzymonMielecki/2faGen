@@ -4,8 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"gorm.io/driver/postgres"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"github.com/SzymonMielecki/2faGen/server/utils"
@@ -32,14 +31,8 @@ type Token struct {
 	Is_completed bool
 }
 
-func NewRootDB(path string, isSqlite bool) (*RootDB, error) {
-	var db *gorm.DB
-	var err error
-	if isSqlite {
-		db, err = gorm.Open(sqlite.Open(path), &gorm.Config{})
-	} else {
-		db, err = gorm.Open(postgres.Open(path), &gorm.Config{})
-	}
+func NewRootDB(dsn string) (*RootDB, error) {
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}
@@ -52,6 +45,14 @@ func (r *RootDB) Migrate() error {
 		return err
 	}
 	return r.db.AutoMigrate(&Token{})
+}
+
+func (r *RootDB) Flush() error {
+	err := r.db.Migrator().DropTable(&User{})
+	if err != nil {
+		return err
+	}
+	return r.db.Migrator().DropTable(&Token{})
 }
 
 func (r *RootDB) CreateUser(name, email, password string) (User, error) {

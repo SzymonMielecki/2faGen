@@ -14,7 +14,7 @@ export const LoginPage = () => {
     data.append("password", password);
 
     axios
-      .post("http://[::]:1323/login", data, {
+      .post(process.env.BACKEND + "/login", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -38,7 +38,7 @@ export const LoginPage = () => {
     data.append("email", "test@test.com");
     data.append("password", "test");
     axios
-      .post("http://[::]:1323/login", data, {
+      .post(process.env.BACKEND + "/login", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -23,7 +23,7 @@ export const VerifyPage = () => {
       formData.append("token", token);
       formData.append("code", code);
 
-      const res = await axios.post("http://[::]:1323/verify", formData, {
+      const res = await axios.post(process.env.BACKEND + "/verify", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
