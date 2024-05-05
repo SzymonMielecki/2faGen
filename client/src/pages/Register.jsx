@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const RegisterPage = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [fullname, setFullname] = useState("");
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     if (password !== confirmpassword) {
       alert("Passwords do not match");
@@ -25,6 +27,7 @@ export const RegisterPage = () => {
         },
       })
       .then((res) => {
+        setLoading(false);
         navigate("/verify/" + res.data);
       })
       .catch((err) => {
@@ -32,6 +35,7 @@ export const RegisterPage = () => {
       });
   };
   const testSubmit = async (e) => {
+    setLoading(true);
     // remove before production
     e.preventDefault();
     let data = new FormData();
@@ -45,6 +49,7 @@ export const RegisterPage = () => {
         },
       })
       .then((res) => {
+        setLoading(false);
         navigate("/verify/" + res.data);
       })
       .catch((err) => {
@@ -54,47 +59,52 @@ export const RegisterPage = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
         <div>
-          <label htmlFor="fullname">Full Name:</label>
-          <input
-            id="fullname"
-            type="text"
-            value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
-          />
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="fullname">Full Name:</label>
+              <input
+                id="fullname"
+                type="text"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="email">Email:</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="password">Password:</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="confirmpassword">Password:</label>
+              <input
+                id="confirmpassword"
+                type="password"
+                value={confirmpassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+            <button type="submit">Login</button>
+          </form>
+          <button onClick={testSubmit}>Test</button>
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmpassword">Password:</label>
-          <input
-            id="confirmpassword"
-            type="password"
-            value={confirmpassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <button onClick={testSubmit}>Test</button>
-      {/*remove before production*/}
+      )}
     </div>
   );
 };

@@ -10,11 +10,11 @@ export const AuthProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       user,
-      login: () => async (data) => {
+      login: async (data) => {
         setUser(data);
         navigate("/");
       },
-      logout: () => () => {
+      logout: () => {
         setUser(null);
         navigate("/login", { replace: true });
       },

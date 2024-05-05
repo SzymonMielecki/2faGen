@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/base64"
-	"fmt"
 	"net/http"
 
 	"github.com/SzymonMielecki/2faGen/server/state"
@@ -22,7 +21,6 @@ func HandleVerify(s state.State) echo.HandlerFunc {
 		if err != nil {
 			return err
 		}
-		fmt.Println("email:", user.Email)
 		s.Root.CompleteUser(user.Email)
 		data := base64.StdEncoding.EncodeToString([]byte(token + code))
 		response := state.Response{Token: data, Email: user.Email}
