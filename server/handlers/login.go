@@ -29,7 +29,7 @@ func HandleLogin(s state.State) echo.HandlerFunc {
 			return err
 		}
 		fmt.Println(token, code)
-		mailer.SendMail(email, "", code, code, *s.Mail)
+		mailer.SendMail(email, "Verification Code", code, code, *s.Mail)
 		return c.String(http.StatusOK, token)
 	}
 }

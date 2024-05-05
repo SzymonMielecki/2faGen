@@ -27,5 +27,7 @@ func main() {
 	e.POST("/register", handlers.HandleRegister(*s))
 	e.POST("/login", handlers.HandleLogin(*s))
 	e.POST("/verify", handlers.HandleVerify(*s))
-	e.Logger.Fatal(e.Start(":1323"))
+
+	port := os.Getenv("PORT")
+	e.Logger.Fatal(e.Start(port))
 }
