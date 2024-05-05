@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
@@ -15,10 +14,7 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	_ = godotenv.Load()
 	api_key := os.Getenv("SENDGRID_API_KEY")
 	email := os.Getenv("SENDGRID_EMAIL")
 	credentials := state.NewMailCredentials(api_key, email)
