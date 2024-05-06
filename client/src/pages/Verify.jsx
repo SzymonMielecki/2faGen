@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import env from "react-dotenv";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
@@ -24,7 +25,7 @@ export const VerifyPage = () => {
       formData.append("code", code);
 
       const res = await axios.post(
-        process.env.REACT_APP_BACKEND + "/verify",
+        env.REACT_APP_BACKEND + "/verify",
         formData,
         {
           headers: {

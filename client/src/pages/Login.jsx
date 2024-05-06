@@ -1,4 +1,5 @@
 import axios from "axios";
+import env from "react-dotenv";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 export const LoginPage = () => {
@@ -14,7 +15,7 @@ export const LoginPage = () => {
     data.append("password", password);
 
     axios
-      .post(process.env.REACT_APP_BACKEND + "/login", data, {
+      .post(env.REACT_APP_BACKEND + "/login", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -38,7 +39,7 @@ export const LoginPage = () => {
     data.append("email", "test@test.com");
     data.append("password", "test");
     axios
-      .post(process.env.REACT_APP_BACKEND + "/login", data, {
+      .post(env.REACT_APP_BACKEND + "/login", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

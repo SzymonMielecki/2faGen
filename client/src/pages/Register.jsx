@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import env from "react-dotenv";
 export const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ export const RegisterPage = () => {
     data.append("password", password);
 
     axios
-      .post(process.env.REACT_APP_BACKEND + "/register", data, {
+      .post(env.REACT_APP_BACKEND + "/register", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -43,7 +44,7 @@ export const RegisterPage = () => {
     data.append("email", "test@test.com");
     data.append("password", "test");
     axios
-      .post(process.env.REACT_APP_BACKEND + "/register", data, {
+      .post(env.REACT_APP_BACKEND + "/register", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -63,13 +64,6 @@ export const RegisterPage = () => {
         <p>Loading...</p>
       ) : (
         <div>
-          <button
-            onClick={() => {
-              console.log(process.ENV);
-            }}
-          >
-            log
-          </button>
           <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="fullname">Full Name:</label>
