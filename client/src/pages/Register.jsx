@@ -63,6 +63,13 @@ export const RegisterPage = () => {
         <p>Loading...</p>
       ) : (
         <div>
+          <button
+            onClick={() => {
+              console.log(process.ENV);
+            }}
+          >
+            log
+          </button>
           <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="fullname">Full Name:</label>
