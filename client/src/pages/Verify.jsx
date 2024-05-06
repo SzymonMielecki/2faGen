@@ -23,11 +23,15 @@ export const VerifyPage = () => {
       formData.append("token", token);
       formData.append("code", code);
 
-      const res = await axios.post(process.env.BACKEND + "/verify", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const res = await axios.post(
+        process.env.REACT_APP_BACKEND + "/verify",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      });
+      );
 
       if (res.status !== 200) {
         throw new Error("Invalid code");
