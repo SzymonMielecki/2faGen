@@ -24,7 +24,7 @@ func main() {
 	dbpass := os.Getenv("DBPASS")
 	dbhost := os.Getenv("DBHOST")
 	dbname := os.Getenv("DBNAME")
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbuser, dbpass, dbhost, dbname)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbuser, dbpass, dbhost, dbname)
 	fmt.Println(dsn)
 	database, err := db.NewRootDB(dsn)
 	if err != nil {
