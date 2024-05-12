@@ -2,9 +2,11 @@ package db
 
 import (
 	"errors"
+
 	"fmt"
 
-	"gorm.io/driver/mysql"
+	_ "github.com/tursodatabase/libsql-client-go/libsql"
+	sqlite "github.com/ytsruh/gorm-libsql"
 	"gorm.io/gorm"
 
 	"github.com/SzymonMielecki/2faGen/server/utils"
@@ -31,8 +33,22 @@ type Token struct {
 	Is_completed bool
 }
 
-func NewRootDB(dsn string) (*RootDB, error) {
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+func NewTursoDB(primaryUrl, authToken string) (*RootDB, error) {
+	dbUrl := primaryUrl + "?authToken=" + authToken
+	db, err := gorm.Open(sqlite.New(sqlite.Config{DSN: dbUrl, DriverName: "libsql"}),&gorm.Config{})
+	if err != nil {
+		return nil, err
+	}
+	rootDB := &RootDB{db: db}
+	if err := rootDB.Migrate(); err != nil {
+		return nil, err
+	}
+
+	return rootDB, nil
+}
+
+func NewSQLiteDB(dsn string) (*RootDB, error) {
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}

@@ -16,17 +16,14 @@ import (
 func main() {
 	_ = godotenv.Load()
 	api_key := os.Getenv("SENDGRID_API_KEY")
+	fmt.Println(api_key)
 	email := os.Getenv("SENDGRID_EMAIL")
 	credentials := state.NewMailCredentials(api_key, email)
 	e := echo.New()
 	e.Use(middleware.CORS())
-	dbuser := os.Getenv("DBUSER")
-	dbpass := os.Getenv("DBPASS")
-	dbhost := os.Getenv("DBHOST")
-	dbname := os.Getenv("DBNAME")
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbuser, dbpass, dbhost, dbname)
-	fmt.Println(dsn)
-	database, err := db.NewRootDB(dsn)
+	turso_database_url := os.Getenv("TURSO_DATABASE_URL")
+	turso_auth_token := os.Getenv("TURSO_AUTH_TOKEN")
+	database, err := db.NewTursoDB( turso_database_url, turso_auth_token)
 	if err != nil {
 		e.Logger.Fatal(err)
 	}
