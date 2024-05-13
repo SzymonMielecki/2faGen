@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 
@@ -16,7 +15,6 @@ import (
 func main() {
 	_ = godotenv.Load()
 	api_key := os.Getenv("SENDGRID_API_KEY")
-	fmt.Println(api_key)
 	email := os.Getenv("SENDGRID_EMAIL")
 	credentials := state.NewMailCredentials(api_key, email)
 	e := echo.New()
