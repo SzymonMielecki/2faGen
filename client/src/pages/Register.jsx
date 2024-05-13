@@ -32,28 +32,10 @@ export const RegisterPage = () => {
         navigate("/verify/" + res.data);
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
-  const testSubmit = async (e) => {
-    setLoading(true);
-    // remove before production
-    e.preventDefault();
-    let data = new FormData();
-    data.append("fullname", "test");
-    data.append("email", "test@test.com");
-    data.append("password", "test");
-    axios
-      .post(env.REACT_APP_BACKEND + "/register", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        setLoading(false);
-        navigate("/verify/" + res.data);
-      })
-      .catch((err) => {
+        if (err.response.status === 400) {
+          setLoading(false);
+          alert("user already exists")
+        }
         console.log(err);
       });
   };
@@ -103,7 +85,6 @@ export const RegisterPage = () => {
             </div>
             <button type="submit">Login</button>
           </form>
-          <button onClick={testSubmit}>Test</button>
         </div>
       )}
     </div>

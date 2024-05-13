@@ -36,45 +36,28 @@ export const LoginPage = () => {
                 console.log(err);
             });
     };
-    const testSubmit = async (e) => {
-        setLoading(true);
-        // remove before production
-        e.preventDefault();
-        let data = new FormData();
-        data.append("email", "test@test.com");
-        data.append("password", "test");
-        axios
-            .post(env.REACT_APP_BACKEND + "/login", data, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((res) => {
-                setLoading(false);
-                navigate("/verify/" + res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
+    
     return (
-        <div class="">
+   
+
+        <div class=" ">
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div>
-                    <div>
-                        <h1>hi.</h1>
-                        <h1>project.</h1>
-                        <h1>2 step authentication.</h1>
-                        <span>madzia i szymon</span>
+                <div className="flex flex-row  ">
+                    <div className="w-1/2 h-screen p-10">
+                        <h1 className="text-5xl flex mt-16">hi.</h1>
+                        <h1 className="text-5xl"> project.</h1>
+                        <h1 className="text-5xl">2 step authentication.</h1>
+                        <span className="text-xl text-gray-400 flex mt-80">madzia i szymon</span>
                     </div>
-                    <div>
+                    <div className="w-1/2 bg-gray-300 h-screen grid place-content-center ">
                     
-                    <form onSubmit={handleSubmit}>
-                        <div>
+                
+                    <form  className="flex bg-white flex-col m-28 p-10 gap-5 rounded-xl shadow-xl "onSubmit={handleSubmit}>
+                        <div >
                             <label htmlFor="email">email :</label>
-                            <input
+                            <input 
                                 id="email"
                                 type="email"
                                 value={email}
@@ -91,18 +74,19 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div>
-                        <button type="submit">login</button>
+                        <button  type="submit"><b>login</b></button>
                         </div>
                         <div>
                         
-                        <Link to="/register">ur not with us? <b>register here.</b></Link> 
+                        <Link className="text-sm" to="/register">ur not with us? <b>register here.</b></Link> 
                         </div>
-                    </form>
-                    <button onClick={testSubmit}>test login</button>
+                    </form> 
                     
+
                     </div>
                 </div>
             )}
         </div>
+    
     );
 };
