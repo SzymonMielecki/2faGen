@@ -32,9 +32,9 @@ export const RegisterPage = () => {
         navigate("/verify/" + res.data);
       })
       .catch((err) => {
-        if (err.response.status === 400) {
-          setLoading(false);
-          alert("user already exists")
+        setLoading(false);
+        if (err.response && err.response.status === 400) {
+          alert("this user already exists");
         }
         console.log(err);
       });
@@ -45,46 +45,67 @@ export const RegisterPage = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
-          <form onSubmit={handleSubmit}>
+        <div className="flex flex-row  ">
+          <div className="w-1/2 h-screen p-10  justify-between flex flex-col">
             <div>
-              <label htmlFor="fullname">Full Name:</label>
-              <input
-                id="fullname"
-                type="text"
-                value={fullname}
-                onChange={(e) => setFullname(e.target.value)}
-              />
+              <h1 className="text-5xl  mt-16">hi.</h1>
+              <h1 className="text-5xl"> project.</h1>
+              <h1 className="text-5xl">2 step authentication.</h1>
             </div>
-            <div>
-              <label htmlFor="email">Email:</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password:</label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="confirmpassword">Password:</label>
-              <input
-                id="confirmpassword"
-                type="password"
-                value={confirmpassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
-            <button type="submit">Login</button>
-          </form>
+            <span className="text-xl text-gray-400  mt-80">
+              madzia i szymon
+            </span>
+          </div>
+          <div className="w-1/2 bg-gray-300 h-screen grid place-content-center ">
+            <form
+              className="flex bg-white flex-col m-28 p-10 gap-5 rounded-xl shadow-xl "
+              onSubmit={handleSubmit}
+            >
+              <div className="flex justify-between">
+                <label htmlFor="fullname">full name :</label>
+                <input
+                  className="border-gray-300 border rounded-md mx-3"
+                  id="fullname"
+                  type="text"
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
+                />
+              </div>
+              <div className="flex justify-between">
+                <label htmlFor="email">email :</label>
+                <input
+                  className="border-gray-300 border rounded-md mx-3"
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="flex justify-between">
+                <label htmlFor="password">password :</label>
+                <input
+                  className="border-gray-300 border rounded-md mx-3"
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="flex justify-between">
+                <label htmlFor="confirmpassword">confirm password:</label>
+                <input
+                  className="border-gray-300 border rounded-md mx-3"
+                  id="confirmpassword"
+                  type="password"
+                  value={confirmpassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </div>
+              <button className="flex justify-start" type="submit">
+                <b>register</b>
+              </button>
+            </form>
+          </div>
         </div>
       )}
     </div>

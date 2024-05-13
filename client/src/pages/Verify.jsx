@@ -31,7 +31,7 @@ export const VerifyPage = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        },
+        }
       );
 
       if (res.status !== 200) {
@@ -46,19 +46,33 @@ export const VerifyPage = () => {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="flex flex-row ">
+      <div className="w-1/2 bg-gray-300 h-screen grid place-content-center ">
+        <form onSubmit={handleSubmit}>
+          <h1>here exacly</h1>
+          <div>
+            <input
+              className="border-gray-300 border rounded-md mx-3"
+              maxLength="6"
+              id="code"
+              type="text"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+            />
+          </div>
+          <button className="" type="submit">
+            login
+          </button>
+        </form>
+      </div>
+      <div className="w-1/2 h-screen p-10 text-right justify-between flex flex-col">
         <div>
-          <input
-            maxLength="6"
-            id="code"
-            type="text"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-          />
+          <h1 className="text-5xl  mt-16">hello again.</h1>
+          <h1 className="text-5xl"> time for the second step.</h1>
+          <h1 className="text-5xl">insert the code we sent you.</h1>
         </div>
-        <button type="submit">Login</button>
-      </form>
+        <span className="text-xl text-gray-400  mt-80">madzia i szymon</span>
+      </div>
     </div>
   );
 };
