@@ -58,15 +58,22 @@ export const LoginPage = () => {
             });
     };
     return (
-        <div>
+        <div class="">
             {loading ? (
                 <p>Loading...</p>
             ) : (
                 <div>
-                    <Link to="/register">Go to Register</Link>
+                    <div>
+                        <h1>hi.</h1>
+                        <h1>project.</h1>
+                        <h1>2 step authentication.</h1>
+                        <span>madzia i szymon</span>
+                    </div>
+                    <div>
+                    
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="email">Email:</label>
+                            <label htmlFor="email">email :</label>
                             <input
                                 id="email"
                                 type="email"
@@ -75,7 +82,7 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="password">Password:</label>
+                            <label htmlFor="password">password :</label>
                             <input
                                 id="password"
                                 type="password"
@@ -83,9 +90,17 @@ export const LoginPage = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
-                        <button type="submit">Login</button>
+                        <div>
+                        <button type="submit">login</button>
+                        </div>
+                        <div>
+                        
+                        <Link to="/register">ur not with us? <b>register here.</b></Link> 
+                        </div>
                     </form>
-                    <button onClick={testSubmit}>Test Login</button>
+                    <button onClick={testSubmit}>test login</button>
+                    
+                    </div>
                 </div>
             )}
         </div>
