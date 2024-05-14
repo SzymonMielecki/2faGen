@@ -12,7 +12,7 @@ import (
 )
 
 func SendMail(to_email, subject, code string, credentials state.MailCredentials) {
-	t, err := template.ParseFiles("template.html")
+	t, err := template.ParseFiles("./mailer/template.html")
 	if err != nil {
 		log.Println(err)
 	}

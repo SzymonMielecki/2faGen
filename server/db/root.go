@@ -64,11 +64,11 @@ func (r *RootDB) Migrate() error {
 }
 
 func (r *RootDB) Flush() error {
-	err := r.db.Migrator().DropTable(&User{})
+	err := r.db.Migrator().DropTable(&Token{})
 	if err != nil {
 		return err
 	}
-	return r.db.Migrator().DropTable(&Token{})
+	return r.db.Migrator().DropTable(&User{})
 }
 
 func (r *RootDB) CreateUser(name, email, password string) (User, error) {
