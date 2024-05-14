@@ -12,8 +12,9 @@ Aplikacja jest pokazem autorskiej implementacji systemu implementacji weryfikacj
 - [Go](https://go.dev/)
 - [GNU make](https://www.gnu.org/software/make/)
 ## Startup
-sh
+```sh
 make -j 2
+```
 - instaluje wszystkie paczki
 - builduje i odpala aplikację
 ## Frontend
