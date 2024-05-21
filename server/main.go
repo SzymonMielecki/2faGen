@@ -38,5 +38,8 @@ func main() {
 	e.POST("/verify", handlers.HandleVerify(*s))
 
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "1323"
+	}
 	e.Logger.Fatal(e.Start(":" + port))
 }
