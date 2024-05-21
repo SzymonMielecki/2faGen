@@ -35,7 +35,7 @@ type Token struct {
 
 func NewTursoDB(primaryUrl, authToken string) (*RootDB, error) {
 	dbUrl := primaryUrl + "?authToken=" + authToken
-	db, err := gorm.Open(sqlite.New(sqlite.Config{DSN: dbUrl, DriverName: "libsql"}),&gorm.Config{})
+	db, err := gorm.Open(sqlite.New(sqlite.Config{DSN: dbUrl, DriverName: "libsql"}), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}

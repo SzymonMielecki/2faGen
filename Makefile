@@ -1,13 +1,13 @@
 target: server client
 
 build_client:
-	source .env && cd client && npm install && npm run build
+	cd client && source .env && npm install && npm run build
 
 client: build_client
 	cd client && serve -s build
 
 build_server:
-	source .env && cd server && go build -o server
+	cd server && source .env && go build -o server
 
 server: build_server 
 	cd server && ./server
@@ -15,7 +15,7 @@ server: build_server
 test: test_server test_client
 
 test_server:
-	source .env && cd server && go run main.go
+	cd server && source .env && go run main.go
 
 test_client:
-	source .env && cd client && npm run start
+	cd client && source .env && npm run start
