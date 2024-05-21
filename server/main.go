@@ -36,7 +36,6 @@ func main() {
 	e.POST("/register", handlers.HandleRegister(*s))
 	e.POST("/login", handlers.HandleLogin(*s))
 	e.POST("/verify", handlers.HandleVerify(*s))
-	e.POST("/flush", handlers.HandleFlush(*s))
 
 	port := os.Getenv("PORT")
 	e.Logger.Fatal(e.Start(":" + port))
