@@ -25,7 +25,7 @@ export const VerifyPage = () => {
       formData.append("code", code);
 
       const res = await axios.post(
-        env.REACT_APP_BACKEND + "/verify",
+        "http://localhost:1323" + "/verify",
         formData,
         {
           headers: {
@@ -48,8 +48,11 @@ export const VerifyPage = () => {
   return (
     <div className="flex flex-row ">
       <div className="w-1/2 bg-gray-300 h-screen grid place-content-center ">
-        <form onSubmit={handleSubmit}>
-          <h1>here exacly</h1>
+        <form
+          className="bg-white p-10 rounded-xl  shadow-xl flex flex-col items-center gap-3"
+          onSubmit={handleSubmit}
+        >
+          <h1 className="text-xl">here exacly</h1>
           <div>
             <input
               className="border-gray-300 border rounded-md mx-3"
@@ -60,7 +63,10 @@ export const VerifyPage = () => {
               onChange={(e) => setCode(e.target.value)}
             />
           </div>
-          <button className="" type="submit">
+          <button
+            className="justify-center items-center text-xl font-bold"
+            type="submit"
+          >
             login
           </button>
         </form>

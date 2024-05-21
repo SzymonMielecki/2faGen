@@ -62,7 +62,7 @@ export const RegisterPage = () => {
               onSubmit={handleSubmit}
             >
               <div className="flex justify-between">
-                <label htmlFor="fullname">full name :</label>
+                <label htmlFor="fullname">full name:</label>
                 <input
                   className="border-gray-300 border rounded-md mx-3"
                   id="fullname"
@@ -72,7 +72,7 @@ export const RegisterPage = () => {
                 />
               </div>
               <div className="flex justify-between">
-                <label htmlFor="email">email :</label>
+                <label htmlFor="email">email:</label>
                 <input
                   className="border-gray-300 border rounded-md mx-3"
                   id="email"
@@ -82,7 +82,7 @@ export const RegisterPage = () => {
                 />
               </div>
               <div className="flex justify-between">
-                <label htmlFor="password">password :</label>
+                <label htmlFor="password">password:</label>
                 <input
                   className="border-gray-300 border rounded-md mx-3"
                   id="password"

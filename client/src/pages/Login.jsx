@@ -59,7 +59,7 @@ export const LoginPage = () => {
               onSubmit={handleSubmit}
             >
               <div className="flex justify-between">
-                <h3>email :</h3>
+                <h3>email:</h3>
                 <input
                   className="border-gray-300 border rounded-md mx-3"
                   id="email"
@@ -69,7 +69,7 @@ export const LoginPage = () => {
                 />
               </div>
               <div className="flex justify-between">
-                <h3>password :</h3>
+                <h3>password:</h3>
                 <input
                   className="border-gray-300 border rounded-md mx-3"
                   id="password"
